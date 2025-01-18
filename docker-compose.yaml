@@ -1,0 +1,8 @@
+
+services:
+
+  weight-reading:
+    build: .
+    command: gunicorn app:app -w 4 -k uvicorn.workers.UvicornWorker
+    ports:
+      - 8000:8000
