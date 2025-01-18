@@ -252,6 +252,11 @@ If you're not connected to a real scale, you can modify the `read_weight` functi
   "unit": "KG"
 }
 ```
+### Deployment via Docker
+
+```bash
+docker compose up
+```
 ---
 
 ## License
