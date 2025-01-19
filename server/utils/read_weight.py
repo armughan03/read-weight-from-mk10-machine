@@ -2,7 +2,7 @@ import serial
 import time
 
 
-def read_weight(port="COM3", baudrate=9600, timeout=1):
+def read_weight(port="/dev/com3", baudrate=9600, timeout=1):
     try:
         with serial.Serial(port, baudrate, timeout=timeout) as ser:
             print(f"Connected to {port}. Waiting for stable data...")
