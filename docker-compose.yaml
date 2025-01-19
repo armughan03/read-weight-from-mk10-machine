@@ -3,6 +3,6 @@ services:
 
   weight-reading:
     build: .
-    command: gunicorn app:app -w 4 -k uvicorn.workers.UvicornWorker
+    command: gunicorn app:app -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:9999
     ports:
-      - 8000:8000
+      - 9999:9999
