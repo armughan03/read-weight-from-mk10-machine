@@ -192,6 +192,10 @@ This project reads stable weight data from an MK10 scale connected via a serial 
 
 ## Usage
 
+### One click install and run
+- For windows: `install_and_run.bat`
+- For linux: `install_and_run.sh`
+
 ### 1. Run the API Server
 - Save the FastAPI server code to a file, e.g., `app.py`.
 - Start the server:
