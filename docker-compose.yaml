@@ -1,8 +1,12 @@
 
 services:
 
-  weight-reading:
-    build: .
-    command: gunicorn app:app -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:9999
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile.linux
+    command: uvicorn app:app --host 0.0.0.0 --port 9999
     ports:
       - 9999:9999
+    network_mode: "host"
+

@@ -1,0 +1,35 @@
+# Use a base Windows image with Python installed
+FROM mcr.microsoft.com/windows/nanoserver:ltsc2025-amd64
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PYTHON_VERSION=3.11.11
+
+# Set working directory
+WORKDIR C:\\app
+
+# Install Chocolatey (package manager for Windows)
+RUN powershell -NoProfile -Command \
+    Set-ExecutionPolicy Bypass -Scope Process -Force; \
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; \
+    iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+# Use Chocolatey to install Python 3.11.11
+RUN choco install python --version=%PYTHON_VERSION% -y && \
+    refreshenv
+
+# Copy the requirements file
+COPY requirements.txt .
+
+# Install Python and pip
+RUN powershell -Command \
+    python -m pip install --upgrade pip; \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy the server code
+COPY ./server .
+
+# Run ruff to check the code
+RUN powershell -Command \
+    ruff check
