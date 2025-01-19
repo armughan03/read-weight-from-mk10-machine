@@ -8,7 +8,7 @@ class WeightResponse(BaseModel):
     weight: float
     unit: str = "KG"
 
-@app.get("/api/read_weight", response_model=WeightResponse)
+@app.get("/api/readWeight", response_model=WeightResponse)
 async def get_weight(port: str = "COM3", baudrate: int = 9600, timeout: int = 1):
     """
     Reads the weight from the MK10 scale and returns it as a JSON response.
