@@ -5,6 +5,7 @@ from utils.read_weight import read_weight
 app = FastAPI()
 
 class WeightResponse(BaseModel):
+    message: str
     weight: float
     unit: str = "KG"
 
@@ -21,7 +22,7 @@ async def get_weight(port: str = "COM3", baudrate: int = 9600, timeout: int = 1)
     try:
         weight = read_weight(port=port, baudrate=baudrate, timeout=timeout)
         if weight:
-            return {"weight": float(weight), "unit": "KG"}
-        return {"weight": 0.0, "unit": "KG"}
+            return {"message": "Weight read successfully", "weight": float(weight), "unit": "KG"}
+        return {"message": "Failed to read weight", "weight": 0.0, "unit": "KG"}
     except Exception as e:
-        return {"error": str(e)}
+        return {"message": str(e), "weight": 0.0, "unit": "KG"}
