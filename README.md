@@ -1,6 +1,6 @@
 ﻿# Weight Reading Script for MK10 with Prolific Driver
 
-This script reads stable weight data from an MK10 scale connected via a serial port using the Prolific driver. It processes raw data received from the scale, filters out invalid readings, and returns a stable weight measurement.
+This script reads stable weight data from an MK10 scale connected via a serial port using the Prolific driver. It processes raw data received from the scale, filters out invalid readings, and returns a stable weight measurement. Currently supports Windows for now.
 
 ---
 
@@ -125,7 +125,7 @@ class WeightResponse(BaseModel):
     weight: float
     unit: str = "KG"
 
-@app.get("/weight", response_model=WeightResponse)
+@app.get("/api/read-weight", response_model=WeightResponse)
 async def get_weight(port: str = "COM3", baudrate: int = 9600, timeout: int = 1):
     """
     Reads the weight from the MK10 scale and returns it as a JSON response.
@@ -196,21 +196,22 @@ This project reads stable weight data from an MK10 scale connected via a serial 
 - Save the FastAPI server code to a file, e.g., `app.py`.
 - Start the server:
   ```bash
-  uvicorn app:app --reload --host 0.0.0.0 --port 8000
+  cd server
+  uvicorn app:app --reload --host 0.0.0.0 --port 9999
   ```
 
 ### 2. Access the Endpoint
-The API exposes the `/weight` endpoint, which reads the weight from the MK10 scale and returns the result in JSON format.
+The API exposes the `/api/read-weight` endpoint, which reads the weight from the MK10 scale and returns the result in JSON format.
 
-- **Endpoint**: `GET /weight`
-- **Query Parameters**:
+- **Endpoint**: `GET /api/read-weight`
+- **Query Parameters** (optional):
   - `port` (default: `COM3`): Serial port to connect to.
   - `baudrate` (default: `9600`): Communication speed.
   - `timeout` (default: `1`): Serial read timeout in seconds.
 
 #### Example Request
 ```bash
-curl "http://127.0.0.1:8000/read_weight?port=COM3&baudrate=9600&timeout=1"
+curl "http://127.0.0.1:9999/api/read-weight?port=COM3&baudrate=9600&timeout=1"
 ```
 
 #### Example Response
@@ -255,8 +256,9 @@ If you're not connected to a real scale, you can modify the `read_weight` functi
 ### Deployment via Docker
 
 ```bash
-docker compose up
+docker compose up --build -d
 ```
+NOTE: The docker support is experimental and may not work as expected. Currently only tested on Windows.
 ---
 
 ## License
