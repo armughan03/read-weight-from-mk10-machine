@@ -265,6 +265,12 @@ docker compose up --build -d
 NOTE: The docker support is experimental and may not work as expected. Currently only tested on Windows.
 ---
 
+### Access it via ngrok
+
+```bash
+ngrok http 9999
+```
+
 ## License
 This script is open-source and can be modified to suit your specific needs. Please acknowledge the original author when redistributing.
 
