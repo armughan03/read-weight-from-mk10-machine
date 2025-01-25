@@ -4,6 +4,23 @@ from utils.read_weight import read_weight
 
 app = FastAPI()
 
+origins = [
+    "https://qadmin.qwqer.pk",
+    "https://dev-admin.qwqer.pk",
+    "https://staging-admin.qwqer.pk",
+    "http://localhost:3000",
+    "http://localhost:9999",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 class WeightResponse(BaseModel):
     message: str
     weight: float
