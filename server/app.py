@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from utils.read_weight import read_weight
 
@@ -43,3 +44,8 @@ async def get_weight(port: str = "COM3", baudrate: int = 9600, timeout: int = 1)
         return {"message": "Failed to read weight", "weight": 0.0, "unit": "KG"}
     except Exception as e:
         return {"message": str(e), "weight": 0.0, "unit": "KG"}
+
+
+@app.get("/api/health")
+async def health():
+    return {"message": "OK"}
