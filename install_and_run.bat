@@ -49,7 +49,7 @@ cd server
 
 REM Step 10: Run the server
 echo Running the server...
-call uvicorn app:app --host 0.0.0.0 --port 9999
+call uvicorn app:app --host localhost --port 9999
 
 echo Server started.
 pause
